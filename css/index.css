@@ -138,3 +138,53 @@ button#startGameButton {
     font-size: 20px;
     margin: auto;
 }
+
+img#characterSprite {
+    max-height: 100px;
+    max-width: 100px;
+    position: relative;
+    display: block;
+    top: 400px;
+    left: 100px;
+}
+
+section#healthbar {
+    position: relative;
+    display: block;
+    top: 0px;
+    left: 10px;
+    font-size: 30px;
+}
+
+img#robotSprite {
+    max-height: 100px;
+    max-width: 100px;
+    position: relative;
+    display: block;
+    top: 250px;
+    left: 600px;
+}
+
+button#attackButton {
+    top: 280px;
+    left: 50px;
+    position: relative;
+    border: groove;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    margin: auto;
+}
+
+button#defendButton {
+    top: 220px;
+    left: 200px;
+    position: relative;
+    border: groove;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    margin: auto;
+}

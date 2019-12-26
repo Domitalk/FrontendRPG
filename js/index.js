@@ -1,6 +1,9 @@
 // function startGame() {
 
 // }
+
+var globalCharacter 
+
 function setBackground() {
     let background = document.createElement("canvas")
     background.id = "background"
@@ -10,7 +13,7 @@ function setBackground() {
     let main = document.querySelector('body')
     main.append(background)
 }
-function battleScreen() {
+function menuScreen() {
     // create canvas tag 
     let battleS = document.createElement("canvas")
     // console.log(battleS)
@@ -27,6 +30,7 @@ function battleScreen() {
     //add title to battle screen 
     context.font = "bold 60px Arial";
     context.fillText("Full Stack Quest", (battleS.width / 2) - 250, (battleS.height / 2) - 200)
+
 
     //buttons in menu box
     let menuBox = document.createElement("div")
@@ -115,8 +119,8 @@ function makeStatBox() {
     // health li
     let healthLi = document.createElement("li")
     healthLi.id = 'healthLi'
-    let healthvalue = Math.floor(Math.random() * 10)
-    healthLi.innerText = `${healthvalue}/10 -- Health`
+    let healthvalue = (Math.floor(Math.random() * 100) + 50)
+    healthLi.innerText = `${healthvalue}/150 -- Health`
     statUl.append(healthLi)
 
     statSection.append(statUl)
@@ -150,8 +154,8 @@ function makeStatBox() {
     rerollButton.addEventListener('click', (event) => {
         attackvalue = Math.floor(Math.random() * 10)
         attackLi.innerText = `${attackvalue}/10 -- Attack`
-        healthvalue = Math.floor(Math.random() * 10)
-        healthLi.innerText = `${healthvalue}/10 -- Health`
+        healthvalue = (Math.floor(Math.random() * 100) + 50)
+        healthLi.innerText = `${healthvalue}/150 -- Health`
     })
     
     startGameButton.addEventListener('click', (event) => {
@@ -175,9 +179,48 @@ function makeStatBox() {
         .then(r => r.json())
         .then((playercharacter)=> {
         // console.log(playercharacter)
-        
+            globalCharacter = playercharacter
+            startGame(playercharacter)
         })
     })
+}
+
+
+function startGame(playercharacter) {
+    let battleS = document.querySelector("#battleS")
+    // console.log(battleS)
+    battleS.style.display = 'none'
+
+    let main = document.querySelector('body')
+    //fight container
+    let fightDiv = document.createElement('div')
+    main.append(fightDiv)
+    // insert character sprite
+    let characterSprite = document.createElement("img")
+    characterSprite.src = 'sprite.png'
+    characterSprite.id = 'characterSprite'
+    fightDiv.append(characterSprite)
+    // healthbar 
+    let healthbar = document.createElement("section")
+    healthbar.id = 'healthbar'
+    healthbar.innerText = `HEALTH : ${globalCharacter.phealth} / ${globalCharacter.pmaxhealth}`
+    fightDiv.append(healthbar)
+    // enemy sprite 
+    let robotSprite = document.createElement('img')
+    robotSprite.src = 'robot.png'
+    robotSprite.id = 'robotSprite'
+    fightDiv.append(robotSprite)
+    // attack button
+    let attackButton = document.createElement("button")
+    attackButton.id = 'attackButton'
+    attackButton.innerText = 'Attack'
+    fightDiv.append(attackButton)
+    // defend button 
+    let defendButton = document.createElement("button")
+    defendButton.id = 'defendButton'
+    defendButton.innerText = 'Defend'
+    fightDiv.append(defendButton)
+
 }
 
 
@@ -185,4 +228,4 @@ function makeStatBox() {
 
 
 setBackground()
-battleScreen()
+menuScreen()
