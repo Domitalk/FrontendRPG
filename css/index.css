@@ -1,0 +1,82 @@
+
+
+canvas#background {
+    background-image: url("https://cdn.gamedevmarket.net/wp-content/uploads/20191203184816/e957b24594d571755d6d7a5881c7f821-700x700.png");
+    z-index: -100;
+    position: absolute;
+}
+
+canvas#battleS {
+    background-color: transparent;
+    position: absolute;
+    z-index: -50;
+}
+
+button#startButton {
+    position: relative;
+    border: groove;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 30px;
+    margin: auto;
+}
+button#continueButton {
+    position: relative;
+    border: groove;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 30px;
+    margin: auto;
+}
+button#highscore {
+    position: relative;
+    border: groove;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 30px;
+    margin: auto;
+}
+
+div#menuBox {
+    position: absolute;
+    top: 300px;
+    left: 300px;
+    
+}
+
+div#enterBox {
+    position: absolute;
+    top: 300px;
+    left: 200px;
+    z-index: 100;
+}
+b#pleaseEnterName {
+    position: relative;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 30px;
+    margin: auto;
+}
+
+input#nameField {
+    position: relative;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 30px;
+    margin: auto;
+}
+
+button#submitNewName {
+    top: 50px;
+    left: 30px;
+    position: relative;
+    border: groove;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    margin: auto;
+}
