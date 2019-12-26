@@ -74,9 +74,16 @@ function enterName() {
 ///////////////////////////////////
 //////////////////////////////////
 /////////////////////////////////
+    submitNewName.addEventListener('click', (event) => {
+        submitNameAndStartGame(nameField)
+    })
+
     main.append(enterBox)
 }
 
+function submitNameAndStartGame(nameField) {
+    console.log(nameField.value)
+}
 
 
 

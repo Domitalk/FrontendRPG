@@ -1,7 +1,9 @@
 
 
 canvas#background {
-    background-image: url("https://cdn.gamedevmarket.net/wp-content/uploads/20191203184816/e957b24594d571755d6d7a5881c7f821-700x700.png");
+    /* background-image: url("https://cdn.gamedevmarket.net/wp-content/uploads/20191203184816/e957b24594d571755d6d7a5881c7f821-700x700.png"); */
+    background-image: url("../backgroundimage.png");
+
     z-index: -100;
     position: absolute;
 }
