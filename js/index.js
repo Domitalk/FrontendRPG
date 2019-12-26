@@ -70,20 +70,117 @@ function enterName() {
     submitNewName.id = "submitNewName"
     submitNewName.innerText = "Submit"
     enterBox.append(submitNewName)
+
+    // back button 
+    let backFrom2A = document.createElement("button")
+    backFrom2A.id = 'backFrom2A'
+    backFrom2A.innerText = 'Back'
+    backFrom2A.addEventListener('click', (event) => {
+        enterBox.style.display = 'none'
+        menuBox.style.display = "block"
+    })
+    enterBox.append(backFrom2A)
+
     //submit button event listener 
 ///////////////////////////////////
 //////////////////////////////////
 /////////////////////////////////
     submitNewName.addEventListener('click', (event) => {
-        submitNameAndStartGame(nameField)
+        // submitNameAndStartGame(nameField)
+        enterBox.style.display = 'none'
+        makeStatBox(nameField)
     })
 
     main.append(enterBox)
 }
 
-function submitNameAndStartGame(nameField) {
-    console.log(nameField.value)
+function makeStatBox() {
+    let main = document.querySelector('body')
+    // make main statBox Element
+    let statBox = document.createElement("div")
+    statBox.id = 'statBox'
+    // add stats and show name + submit button 
+    let statSection = document.createElement("section")
+    statSection.id = 'statSection'
+    statSection.innerText = `Stats for ${nameField.value}`
+    // UL for all the stats
+    let statUl = document.createElement("ul")
+    statUl.id = 'statUl'
+    // attack li 
+    let attackLi = document.createElement("li")
+    attackLi.id = 'attackLi'
+    let attackvalue = Math.floor(Math.random() * 10)
+    attackLi.innerText = `${attackvalue}/10 -- Attack`
+    statUl.append(attackLi)
+    // health li
+    let healthLi = document.createElement("li")
+    healthLi.id = 'healthLi'
+    let healthvalue = Math.floor(Math.random() * 10)
+    healthLi.innerText = `${healthvalue}/10 -- Health`
+    statUl.append(healthLi)
+
+    statSection.append(statUl)
+    statBox.append(statSection)
+
+
+    // back button
+    let backFrom2B = document.createElement('button')
+    backFrom2B.id = 'backFrom2B'
+    backFrom2B.innerText = 'Back'
+    statBox.append(backFrom2B)
+    // reroll button 
+    let rerollButton = document.createElement("button")
+    rerollButton.id = 'rerollButton'
+    rerollButton.innerText = 'ReRoll'
+    statBox.append(rerollButton)
+    // start game button
+    let startGameButton = document.createElement('button')
+    startGameButton.id = 'startGameButton'
+    startGameButton.innerText = "Start Game"
+    statBox.append(startGameButton)
+
+    main.append(statBox)
+
+
+    backFrom2B.addEventListener("click", (event) => {
+        statBox.style.display = 'none'
+        enterBox.style.display = 'block'
+    })
+
+    rerollButton.addEventListener('click', (event) => {
+        attackvalue = Math.floor(Math.random() * 10)
+        attackLi.innerText = `${attackvalue}/10 -- Attack`
+        healthvalue = Math.floor(Math.random() * 10)
+        healthLi.innerText = `${healthvalue}/10 -- Health`
+    })
+    
+    startGameButton.addEventListener('click', (event) => {
+        statBox.style.display = 'none'
+        // console.log(nameField.value)
+        // console.log(attackvalue)
+        // console.log(healthvalue)
+        fetch("http://localhost:3000/players", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: `${nameField.value}`,
+                pattack: `${attackvalue}`,
+                phealth: `${healthvalue}`,
+                pmaxhealth: `${healthvalue}`
+            })
+        })
+        .then(r => r.json())
+        .then((playercharacter)=> {
+        // console.log(playercharacter)
+        
+        })
+    })
 }
+
+
 
 
 
