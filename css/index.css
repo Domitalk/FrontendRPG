@@ -111,8 +111,8 @@ section#statSection {
 }
 
 button#backFrom2B {
-    top: 500px;
-    left: 100px;
+    top: 480px;
+    left: 180px;
     position: absolute;
     border: groove;
     padding: 15px 32px;
@@ -135,8 +135,8 @@ button#rerollButton {
 }
 
 button#startGameButton {
-    top: 500px;
-    left: 450px;
+    top: 347px;
+    left: 210px;
     position: absolute;
     border: groove;
     padding: 15px 32px;
@@ -164,12 +164,12 @@ section#healthbar {
 }
 
 img#robotSprite {
-    max-height: 100px;
-    max-width: 100px;
+    max-height: 300px;
+    max-width: 300px;
     position: absolute;
     display: block;
-    top: 400px;
-    left: 600px;
+    top: 200px;
+    left: 300px;
 }
 
 button#attackButton {
@@ -335,3 +335,77 @@ button#backButton4D {
     margin: auto;
 }
 
+img#axeImg {
+    max-width: 120px;
+    position: absolute;
+    top: 300px;
+    left: 180px;
+}
+
+img#bowImg {
+    max-width: 120px;
+    position: absolute;
+    top: 300px;
+    left: 330px;
+}
+
+img#wandImg {
+    max-width: 120px;
+    position: absolute;
+    top: 300px;
+    left: 480px;
+}
+
+div#classAttrDiv {
+    background-color: white;
+    position: absolute;
+    top: 200px;
+    left: 170px;
+    font-size: 30px;
+}
+
+button#backFrom2C {
+    top: 350px;
+    left: 30px;
+    position: absolute;
+    border: groove;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    margin: auto;
+}
+
+img#axe_img {
+    top: 100px;
+    left: 100px;
+    position: absolute;
+    max-width: 200px;
+    max-height: 200px;
+}
+img#wand_img {
+    top: 350px;
+    left: 150px;
+    position: absolute;
+    border: groove;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    margin: auto;
+    max-width: 150;
+    max-height: 150;
+}
+img#bow_img {
+    top: 350px;
+    left: 30px;
+    position: absolute;
+    border: groove;
+    padding: 15px 32px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    margin: auto;
+    max-width: 150;
+    max-height: 150;
+}

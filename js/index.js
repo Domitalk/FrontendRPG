@@ -1,6 +1,49 @@
 var globalCharacter 
 
-function setBackground() {
+// function setBackground() {
+//     let background = document.createElement("canvas")
+//     background.id = "background"
+//     background.width = 700
+//     background.height = 700
+//     let context = background.getContext('2d')
+//     let main = document.querySelector('body')
+//     main.append(background)
+// }
+
+function spriteshow(x_position, y_position) {
+    let scale = 1.25;
+    let width = 32;
+    let height = 32;
+    let scaledWidth = scale * width;
+    let scaledHeight = scale * height;
+
+    function drawFrame(frameX, frameY, canvasX, canvasY) {
+        context.drawImage(catSprite, frameX * width, frameY * height, width, height, canvasX, canvasY, scaledWidth, scaledHeight)
+    }
+
+    window.requestAnimationFrame(step)
+    
+    let cycleLoop = [1, 0, 1, 2];
+    let currentLoopIndex = 0;
+    let frameCount = 0;
+
+    function step() {
+        frameCount++;
+        if (frameCount < 15) {
+            window.requestAnimationFrame(step);
+            return;
+        }
+        frameCount = 0;
+        context.clearRect(0, 0, background.width, background.height);
+        drawFrame(cycleLoop[currentLoopIndex], 0, x_position, y_position);
+        currentLoopIndex++;
+        if (currentLoopIndex >= cycleLoop.length) {
+            currentLoopIndex = 0;
+        }
+        window.requestAnimationFrame(step);
+    }
+}
+function menuScreen() {
     let background = document.createElement("canvas")
     background.id = "background"
     background.width = 700
@@ -8,24 +51,69 @@ function setBackground() {
     let context = background.getContext('2d')
     let main = document.querySelector('body')
     main.append(background)
-}
-function menuScreen() {
-    // create canvas tag 
-    let battleS = document.createElement("canvas")
-    // console.log(battleS)
-    battleS.id = "battleS"
-    battleS.width = 700;
-    battleS.height = 700
-    let context = battleS.getContext('2d')
+    // // create canvas tag 
+    // let battleS = document.createElement("canvas")
+    // // console.log(battleS)
+    // battleS.id = "battleS"
+    // battleS.width = 700;
+    // battleS.height = 700
+    // let context = battleS.getContext('2d')
+
+    let catSprite = new Image();
+    catSprite.src = './assets/cat_white-32x32.png'
+    // catSprite.onload = function () {
+    //     let scale = 1.25;
+    //     let width = 32;
+    //     let height = 32;
+    //     let scaledWidth = scale * width;
+    //     let scaledHeight = scale * height;
+
+    //     function drawFrame(frameX, frameY, canvasX, canvasY) {
+    //         context.drawImage(catSprite, frameX * width, frameY * height, width, height, canvasX, canvasY, scaledWidth, scaledHeight)
+    //     }
+
+    //     window.requestAnimationFrame(step)
+        
+    //     let cycleLoop = [1, 0, 1, 2];
+    //     let currentLoopIndex = 0;
+    //     let frameCount = 0;
+
+    //     function step() {
+    //         frameCount++;
+    //         if (frameCount < 15) {
+    //             window.requestAnimationFrame(step);
+    //             return;
+    //         }
+    //         frameCount = 0;
+    //         context.clearRect(0, 0, background.width, background.height);
+    //         drawFrame(cycleLoop[currentLoopIndex], 0, 0, 0);
+    //         currentLoopIndex++;
+    //         if (currentLoopIndex >= cycleLoop.length) {
+    //             currentLoopIndex = 0;
+    //         }
+    //         window.requestAnimationFrame(step);
+    //     }
+        
+
+
+        // drawFrame(0, 0, 0, 0)
+        // drawFrame(1, 0, scaledWidth, 0)
+        // drawFrame(0, 0, scaledWidth * 2, 0)
+        // drawFrame(2, 0, scaledWidth * 3, 0)
+        // context.drawImage(catSprite, 0, 0, 32, 32, 0, 0, 32 * scale, 32 * scale);
+        // context.drawImage(catSprite, width, 0, width, height, scaledWidth, 0, scaledWidth, scaledHeight)
+        // context.drawImage(catSprite, width * 2, 0, width, height, scaledWidth * 2, 0, scaledWidth, scaledHeight)
+    // }   
+
     
     // slap it on dom
-    let main = document.querySelector('body')
+    // let main = document.querySelector('body')
     // console.log(main)
-    main.append(battleS)
+    // main.append(battleS)
     
     //add title to battle screen 
     context.font = "bold 60px Arial";
-    context.fillText("Full Stack Quest", (battleS.width / 2) - 250, (battleS.height / 2) - 200)
+    context.fillText("Full Stack Quest", (background.width / 2) - 250, (background.height / 2) - 200)
 
 
     //buttons in menu box
@@ -34,6 +122,9 @@ function menuScreen() {
     let startButton = document.createElement("button")
     startButton.innerText = "START"
     startButton.id = "startButton"
+    
+
+
     menuBox.append(startButton)
     let continueButton = document.createElement("button")
     continueButton.innerText = "CONTINUE"
@@ -53,7 +144,8 @@ function menuScreen() {
     //slap menubox
     main.append(menuBox)
     startButton.addEventListener("click", (event) => {
-        menuBox.style.display = "none"
+        // menuBox.style.display = "none"
+        menuBox.parentNode.removeChild(menuBox)
         enterName()
     })
 }
@@ -83,18 +175,168 @@ function enterName() {
     backFrom2A.id = 'backFrom2A'
     backFrom2A.innerText = 'Back'
     backFrom2A.addEventListener('click', (event) => {
-        enterBox.style.display = 'none'
-        menuBox.style.display = "block"
+        // enterBox.style.display = 'none'
+        enterBox.parentNode.removeChild(enterBox)
+        // menuBox.style.display = "block"
+        menuScreen()
     })
     enterBox.append(backFrom2A)
 
     submitNewName.addEventListener('click', (event) => {
         // submitNameAndStartGame(nameField)
-        enterBox.style.display = 'none'
-        makeStatBox(nameField)
+        // enterBox.style.display = 'none'
+        enterBox.parentNode.removeChild(enterBox)
+        // makeStatBox(nameField)
+        chooseCharacter(nameField)
     })
 
     main.append(enterBox)
+}
+
+function chooseCharacter(nameField) {
+    let main = document.querySelector('body')
+
+    let chooseBox = document.createElement('div')
+    chooseBox.id = 'chooseBox'
+
+    main.append(chooseBox)
+
+    let axeImg = document.createElement('img')
+    axeImg.id = 'axeImg'
+    axeImg.src = './assets/upg_sword.png'
+    chooseBox.append(axeImg)
+    axeImg.addEventListener('click', (event) => {
+        /// helper method 
+        let axe_class_arg = 'Use the SWORD, kill with power!'
+        // console.log(nameField.value)
+
+        let axe_stats = {
+            pattack: 10,
+            phealth: 100,
+            pmaxhealth: 100
+        }
+        // let axe_img = document.createElement('img')
+        // axe_img.id = 'axe_img'
+        // axe_img.src = './assets/berserk.jpg'
+        /// 
+        ///
+        /// make stats hash and show in the helper
+        ///
+        ///
+
+        showClassAttributes(axe_class_arg, axe_stats, nameField)
+    })
+
+    let bowImg = document.createElement('img')
+    bowImg.id = 'bowImg'
+    bowImg.src = './assets/upg_bow.png'
+    chooseBox.append(bowImg)
+
+    bowImg.addEventListener('click', (event) => {
+        let bow_class_arg = 'Use the BOW, kill with accuracy!'
+        let bow_stats = {
+            pattack: 15,
+            phealth: 75,
+            pmaxhealth: 75
+        }
+        // let bow_img = document.createElement('img')
+        // bow_img.src = './assets/archer.png'
+        // bow_img.id = 'bow_img'
+        showClassAttributes(bow_class_arg, bow_stats, nameField)
+    })
+
+    let wandImg = document.createElement('img')
+    wandImg.id = 'wandImg'
+    wandImg.src = './assets/wand.png'
+    chooseBox.append(wandImg)
+    wandImg.addEventListener('click', (event) => {
+        let wand_class_arg = 'Use the WAND, kill with razmatazz'
+        let wand_stats = {
+            pattack: 20,
+            phealth: 50,
+            pmaxhealth: 50
+        }
+        // let wand_img = document.createElement('img')
+        // wand_img.src = './assets/mage.jpg'
+        // wand_img.id = 'wand_img'
+        showClassAttributes(wand_class_arg, wand_stats, nameField)
+    })
+    let backFrom2B = document.createElement('button')
+    backFrom2B.id = 'backFrom2B'
+    backFrom2B.innerText = 'Back'
+    backFrom2B.addEventListener("click", (event) => {
+        chooseBox.parentNode.removeChild(chooseBox)
+        let enterBox = document.querySelector("#enterBox")
+        enterName()
+    })
+    chooseBox.append(backFrom2B)
+}
+
+function showClassAttributes(class_arg, class_stats, nameField) {
+
+
+    //////////// use class_stats and nameField for fetch req
+
+
+    let chooseBox = document.getElementById('chooseBox')
+
+    chooseBox.parentNode.removeChild(chooseBox)
+    let classAttrDiv = document.createElement('div')
+    classAttrDiv.id = 'classAttrDiv'
+    classAttrDiv.innerText = `${class_arg}`
+    let main = document.querySelector('body')
+    main.append(classAttrDiv)
+    
+
+
+
+
+    let startGameButton = document.createElement('button')
+    startGameButton.id = 'startGameButton'
+    startGameButton.innerText = "Start Game"
+    classAttrDiv.append(startGameButton)
+
+
+
+
+
+    startGameButton.addEventListener('click', (event) => {
+        // statBox.style.display = 'none'
+        classAttrDiv.parentNode.removeChild(classAttrDiv)
+        // console.log(nameField.value)
+        // console.log(attackvalue)
+        // console.log(healthvalue)
+        fetch("http://localhost:3000/players", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: `${nameField.value}`,
+                pattack: `${class_stats.pattack}`,
+                phealth: `${class_stats.phealth}`,
+                pmaxhealth: `${class_stats.pmaxhealth}`
+            })
+        })
+        .then(r => r.json())
+        .then((playercharacter)=> {
+        // console.log(playercharacter)
+            globalCharacter = playercharacter
+            startGame(playercharacter)
+        })
+    })
+
+    let backFrom2C = document.createElement('button')
+    backFrom2C.id = 'backFrom2C'
+    backFrom2C.innerText = 'Back'
+    backFrom2C.addEventListener('click', (event) => {
+        let classAttrDiv = document.getElementById("classAttrDiv")
+        classAttrDiv.parentNode.removeChild(classAttrDiv)
+        chooseCharacter()
+    })
+    classAttrDiv.append(backFrom2C)
+    
 }
 
 function makeStatBox() {
@@ -180,16 +422,36 @@ function makeStatBox() {
         .then((playercharacter)=> {
         // console.log(playercharacter)
             globalCharacter = playercharacter
-            startGame(playercharacter)
+            gameSequence()
         })
     })
 }
 
+function gameSequence() {
+    // console.log(globalCharacter)
+    // startGame()
+    // globalCharacter.enemy.eattack += 2
+    // globalCharacter.enemy.ehealth += 5
+    // globalCharacter.enemy.emaxhealth += 5
+
+    startGame()
+
+
+
+
+
+
+}
+
+
+
+
 
 function startGame() {
-    let battleS = document.querySelector("#battleS")
-    // console.log(battleS)
-    battleS.style.display = 'none'
+    let background = document.querySelector("canvas#background")
+    let context = background.getContext('2d')
+    context.clearRect(0, 0, background.width, background.height);
+
 
     let main = document.querySelector('body')
     //fight container
@@ -197,10 +459,10 @@ function startGame() {
     fightDiv.id = 'fightDiv'
     main.append(fightDiv)
     // insert character sprite
-    let characterSprite = document.createElement("img")
-    characterSprite.src = 'sprite.png'
-    characterSprite.id = 'characterSprite'
-    fightDiv.append(characterSprite)
+    // let characterSprite = document.createElement("img")
+    // characterSprite.src = 'sprite.png'
+    // characterSprite.id = 'characterSprite'
+    // fightDiv.append(characterSprite)
     // healthbar 
     let healthbar = document.createElement("section")
     healthbar.id = 'healthbar'
@@ -255,8 +517,9 @@ function attackSequence() {
         // go back to menu
         fightDiv.parentNode.removeChild(fightDiv)
         // menuBox
-        menuBox.style.display = 'block'
-        battleS.style.display = 'block'
+        // menuBox.style.display = 'block'
+        // battleS.style.display = 'block'
+        menuScreen()
 
     } else if (globalCharacter.enemy.ehealth <= 0) {
         /// game win hide fightDiv, show menuBox fetch patch player
@@ -270,8 +533,9 @@ function attackSequence() {
         // go back to menu 
         fightDiv.parentNode.removeChild(fightDiv)
         // show menuBox
-        menuBox.style.display = 'block'
-        battleS.style.display = 'block'
+        // menuBox.style.display = 'block'
+        // battleS.style.display = 'block'
+        menuScreen()
     } else {
         /// show damage message 
         alert(`You did ${globalCharacter.player.pattack} damage, and took ${globalCharacter.enemy.eattack} damage`)
@@ -312,7 +576,9 @@ function fetchPatchPlayer () {
 }
 
 function continueFromSaveState() {
-    menuBox.style.display = 'none'
+    
+    // menuBox.style.display = 'none'
+    menuBox.parentNode.removeChild(menuBox)
     let main = document.querySelector('body')
 
     let continueBox = document.createElement("div")
@@ -345,7 +611,9 @@ function continueFromSaveState() {
                 // start game with this savefile 
                 globalCharacter = response
                 startGame()
-                continueBox.style.display = 'none'
+                // continueBox.style.display = 'none'
+                continueBox.parentNode.removeChild(continueBox)
+            
             }
             
         })
@@ -364,8 +632,10 @@ function continueFromSaveState() {
     continueBox.append(backButton3A)
 
     backButton3A.addEventListener('click', () => {
-        continueBox.style.display = 'none'
-        menuBox.style.display = 'block'
+        // continueBox.style.display = 'none'
+        continueBox.parentNode.removeChild(continueBox)
+        // menuBox.style.display = 'block'
+        menuScreen()
     })
 
 }
@@ -373,7 +643,9 @@ function continueFromSaveState() {
 // high score button 
 
 function highscoreMenu() {
-    menuBox.style.display = 'none'
+    // menuBox.style.display = 'none'
+    // menuBox.parentNode.removeChild(menuBox)
+    menuBox.hidden = 'hidden'
     let main = document.querySelector("body")
 
     let highBox = document.createElement("div")
@@ -387,8 +659,10 @@ function highscoreMenu() {
     highBox.append(backButton4B)
     
     backButton4B.addEventListener('click', (event) => {
-        highBox.style.display = 'none'
-        menuBox.style.display = 'block'
+        // highBox.style.display = 'none'
+        highBox.parentNode.removeChild(highBox)
+        // menuBox.style.display = 'block'
+        menuScreen()
     })
 
     // highest attack button 
@@ -399,7 +673,8 @@ function highscoreMenu() {
     highBox.append(highAttackButton)
 
     highAttackButton.addEventListener('click', (event) => {
-        highBox.style.display = 'none'
+        // highBox.style.display = 'none'
+        highBox.parentNode.removeChild(highBox)
         let highAttackBox = document.createElement("div")
         highAttackBox.id = 'highAttackBox'
         main.append(highAttackBox)
@@ -433,7 +708,9 @@ function highscoreMenu() {
     highBox.append(highKillButton)
 
     highKillButton.addEventListener('click', (event) => {
-        highBox.style.display = 'none'
+        // highBox.style.display = 'none'
+        highBox.hidden = 'hidden'
+
         let highAttackBox = document.createElement("div")
         highAttackBox.id = 'highAttackBox'
         main.append(highAttackBox)
@@ -469,7 +746,9 @@ function highscoreMenu() {
             highAttackBox.append(backButton4D)
             backButton4D.addEventListener('click', (event) => {
                 highAttackBox.parentNode.removeChild(highAttackBox)
-                highBox.style.display = 'block'
+                // highBox.style.display = 'block'
+                // highBox.parentNode.removeChild(highBox)
+                highscoreMenu()
             })
 
 
@@ -505,7 +784,8 @@ function highscoreMenu() {
         highAttackBox.append(backButton4D)
         backButton4D.addEventListener('click', (event) => {
             highAttackBox.parentNode.removeChild(highAttackBox)
-            highBox.style.display = 'block'
+            // highBox.style.display = 'block'
+            highscoreMenu()
         })
     }
 
@@ -525,5 +805,5 @@ function highscoreMenu() {
 
 
 
-setBackground()
+// setBackground()
 menuScreen()
